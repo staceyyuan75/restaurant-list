@@ -6,6 +6,7 @@ const port = 3000
 const exphbs = require('express-handlebars')
 const restaurantList = require('./restaurant.json')
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 const Restaurant = require('./models/restaurant')
 
 // setting connect to MongoDB
@@ -30,6 +31,7 @@ app.set('view engine', 'handlebars')
 
 // setting static files
 app.use(express.static('public'))
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // routes setting
 app.get('/', (req, res) => {
@@ -45,6 +47,37 @@ app.get('/restaurants/:id', (req, res) => {
   return Restaurant.findById(id)
     .lean()
     .then((restaurant) => res.render('show', { restaurant }))
+    .catch((error) => console.log(error))
+})
+
+// 編輯內容頁
+app.get('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+
+  return Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render('edit', { restaurant }))
+    .catch((error) => console.log(error))
+})
+
+// 修改一筆餐廳資料
+app.post('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+
+  return Restaurant.findById(id)
+    .then((restaurant) => {
+      restaurant.name = req.body.name
+      restaurant.name_en = req.body.name_en
+      restaurant.category = req.body.category
+      restaurant.phone = req.body.phone
+      restaurant.location = req.body.location
+      restaurant.google_map = req.body.google_map
+      restaurant.description = req.body.description
+      restaurant.image = req.body.image
+
+      return restaurant.save()
+    })
+    .then(() => res.redirect(`/restaurants/${id}`))
     .catch((error) => console.log(error))
 })
 

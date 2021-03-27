@@ -1,0 +1,70 @@
+<h1 class="mb-1 restaurant-show-title">{{restaurant.name}}</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-10 mx-auto">
+
+      <h3 class="mb-3">編輯餐廳內容</h3>
+      <form class="mb-5" action="/restaurants/{{restaurant._id}}/edit" method="POST">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="name" class="form-label">餐廳中文名稱<span class="field-required">＊</span></label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="{{restaurant.name}}"
+              value="{{restaurant.name}}" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="name_en" class="form-label">餐廳英文名稱</label>
+            <input type="text" class="form-control" id="name_en" name="name_en" placeholder="{{restaurant.name_en}}"
+              value="{{restaurant.name_en}}">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-2">
+            <label for="restaurant_id" class="form-label">餐廳編號</label>
+            <input type="text" class="form-control" id="restaurant_id" name="restaurant_id" value="{{restaurant.id}}"
+              disabled>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="category" class="form-label">餐廳類別<span class="field-required">＊</span>
+            </label>
+            <input type="text" class="form-control" id="category" name="category" value="{{restaurant.category}}"
+              required>
+          </div>
+          <div class="col-md-6">
+            <label for="phone" class="form-label">餐廳電話</label>
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="{{restaurant.phone}}"
+              value="{{restaurant.phone}}">
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="location" class="form-label">餐廳地址<span class="field-required">＊</span>
+          </label>
+          <input type="text" class="form-control" id="location" name="location" placeholder="{{restaurant.location}}"
+            value="{{restaurant.location}}" required>
+        </div>
+        <div class="form-group">
+          <label for="google_map" class="form-label">Google Map 網址</label>
+          <input type="text" class="form-control" id="google_map" name="google_map"
+            placeholder="{{restaurant.google_map}}" value="{{restaurant.google_map}}">
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="description" class="form-label">餐廳介紹</label>
+            <textarea class="form-control" id="description" name="description" rows="4"
+              placeholder="餐廳的特色...等">{{restaurant.description}}</textarea>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="image" class="form-label">餐廳圖片網址</label>
+            <textarea class="form-control" id="image" name="image" rows="4"
+              placeholder="請輸入圖片網址">{{restaurant.image}}</textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">送出</button>
+        <a href="/restaurants/{{restaurant._id}}" class="btn btn-link">返回</a>
+      </form>
+
+    </div>
+  </div>
+</div>
