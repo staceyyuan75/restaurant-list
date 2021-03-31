@@ -75,4 +75,28 @@
     });
   });
 
+  document.querySelector('.delete-alert').onclick = function () {
+    swal({
+      title: "確定要刪除嗎?",
+      text: "一旦刪除餐廳資料就無法復原",
+      icon: "warning",
+      buttons: ['取消', '確定'],
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          const _id = $("input[name='_id']").val();
+          const url = "/restaurants/" + _id + "/delete";
+          const posting = $.post(url, { _id: _id });
+
+          posting.done(function (data) {
+            swal("刪除成功", {
+              icon: "success",
+              button: "知道囉"
+            }).then(() => { location.href = '/'; });
+          })
+
+        }
+      });
+  };
 </script>
