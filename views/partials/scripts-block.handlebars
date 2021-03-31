@@ -1,0 +1,78 @@
+<script>
+  $.validator.setDefaults({
+    submitHandler: function () {
+
+      form.submit();
+    }
+  });
+
+  $(document).ready(function () {
+
+    $("form").validate({
+      rules: {
+        name: {
+          required: true,
+          minlength: 2,
+          normalizer: function (value) {
+            return $.trim(value);
+          }
+        },
+        category: {
+          required: true,
+          normalizer: function (value) {
+            return $.trim(value);
+          }
+        },
+        location: {
+          required: true,
+          normalizer: function (value) {
+            return $.trim(value);
+          }
+        },
+        google_map: {
+          url: true,
+          normalizer: function (value) {
+            return $.trim(value);
+          }
+        },
+        image: {
+          url: true,
+          normalizer: function (value) {
+            return $.trim(value);
+          }
+        }
+      },
+      messages: {
+        name: {
+          required: "請輸入餐廳名稱",
+          minlength: "餐廳名稱至少 2 個字"
+        },
+        category: "請輸入分類",
+        location: "請輸入餐廳地址",
+        google_map: "請輸入正確格式的 Google Map 網址",
+        image: "請輸入正確格式的圖片網址"
+      },
+      errorElement: "span",
+      errorPlacement: function (error, element) {
+        // Add the `invalid-feedback` class to the error element
+        error.addClass("invalid-feedback");
+
+        if (element.prop("type") === "checkbox") {
+          error.insertAfter(element.parent("label"));
+        } else {
+          error.insertAfter(element);
+        }
+      },
+      success: function (label, element) {
+
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass("is-invalid").removeClass("is-valid");
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).addClass("is-valid").removeClass("is-invalid");
+      }
+    });
+  });
+
+</script>
