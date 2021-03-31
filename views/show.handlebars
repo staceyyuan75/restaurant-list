@@ -4,10 +4,11 @@
     <div class="col-12 col-md-10 mx-auto">
       <div class="float-right">
 
-        <a class="btn btn-outline-danger" href="/restaurants/{{restaurant._id}}/delete" role="button">刪除</a>
+        <input type="hidden" name="_id" value="{{restaurant._id}}">
+        <button type="button" class="btn btn-outline-danger delete-alert">刪除</button>
+
         <a class="btn btn-outline-primary" href="/restaurants/{{restaurant._id}}/edit" role="button">編輯</a>
         <a class="btn btn-outline-primary" href="/" role="button">返回首頁</a>
-
       </div>
       <p class="mb-1">
         <span class="text-secondary">
@@ -23,9 +24,11 @@
           地址：
         </span>
         {{restaurant.location}}
+        {{#if restaurant.google_map}}
         <a href="{{restaurant.google_map}}" class="text-secondary" target="_blank">
           <i class="fas fa-location-arrow pr-2 fa-xs"></i>
         </a>
+        {{/if}}
       </p>
 
       <p class="mb-1">
