@@ -8,13 +8,11 @@
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="name" class="form-label">餐廳中文名稱<span class="field-required">＊</span></label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="請輸入餐廳中文名稱"
-              value="{{restaurant.name}}" required>
+            <input type="text" class="form-control" id="name" name="name" value="{{restaurant.name}}" required>
           </div>
           <div class="form-group col-md-6">
             <label for="name_en" class="form-label">餐廳英文名稱</label>
-            <input type="text" class="form-control" id="name_en" name="name_en" placeholder="例如: Sara Pita"
-              value="{{restaurant.name_en}}">
+            <input type="text" class="form-control" id="name_en" name="name_en" value="{{restaurant.name_en}}">
           </div>
         </div>
         <div class="form-row">
@@ -26,13 +24,12 @@
           <div class="form-group col-md-4">
             <label for="category" class="form-label">餐廳類別<span class="field-required">＊</span>
             </label>
-            <input type="text" class="form-control" id="category" name="category" placeholder="請輸入類別"
-              value="{{restaurant.category}}" required>
+            <input type="text" class="form-control" id="category" name="category" value="{{restaurant.category}}"
+              required>
           </div>
           <div class="col-md-6">
             <label for="phone" class="form-label">餐廳電話</label>
-            <input type="text" class="form-control" id="phone" name="phone" placeholder="請輸入餐廳電話"
-              value="{{restaurant.phone}}">
+            <input type="text" class="form-control" id="phone" name="phone" value="{{restaurant.phone}}">
 
           </div>
         </div>
@@ -40,12 +37,12 @@
         <div class="form-group">
           <label for="location" class="form-label">餐廳地址<span class="field-required">＊</span>
           </label>
-          <input type="text" class="form-control" id="location" name="location" placeholder="請輸入餐廳地址"
-            value="{{restaurant.location}}" required>
+          <input type="text" class="form-control" id="location" name="location" value="{{restaurant.location}}"
+            required>
         </div>
         <div class="form-group">
           <label for="google_map" class="form-label">Google Map 網址</label>
-          <input type="text" class="form-control" id="google_map" name="google_map" placeholder="https://"
+          <input type="url" class="form-control" id="google_map" name="google_map" placeholder="https://"
             value="{{restaurant.google_map}}">
         </div>
         <div class="form-row">
@@ -56,8 +53,7 @@
           </div>
           <div class="form-group col-md-6">
             <label for="image" class="form-label">餐廳圖片網址</label>
-            <textarea class="form-control" id="image" name="image" rows="4"
-              placeholder="請輸入圖片網址">{{restaurant.image}}</textarea>
+            <textarea class="form-control" id="image" name="image" rows="4">{{restaurant.image}}</textarea>
           </div>
         </div>
 
