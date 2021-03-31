@@ -22,10 +22,11 @@
             width="30" height="30" class="d-inline-block align-top" alt="點點店鋪">
           點點店鋪
         </a>
+        {{#if addRestaurant}}<a href="/restaurants/new" class="btn btn-primary">新增餐廳</a>{{/if}}
       </div>
     </nav>
 
-    <div class="banner"></div>
+    {{#if banner}}<div class="banner"></div>{{/if}}
   </header>
 
   {{{ body }}}

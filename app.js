@@ -38,15 +38,80 @@ app.get('/', (req, res) => {
   // past the restaurant data into 'index' partial template
   Restaurant.find() // 取出 Restaurant model 裡的所有資料
     .lean()
-    .then((restaurants) => res.render('index', { restaurants }))
+    .then((restaurants) =>
+      res.render('index', {
+        restaurants: restaurants,
+        banner: true,
+        addRestaurant: true,
+      })
+    )
     .catch((error) => console.log(error))
+})
+
+// 餐廳新增頁
+app.get('/restaurants/new', (req, res) => {
+  /*
+  Restaurant.find({ $max: 'id' })
+    .then((restaurant) => res.render('new', { restaurant }))
+    .catch((error) => console.log(error))
+    */
+  Restaurant.aggregate([
+    {
+      $group: {
+        _id: null,
+        max: { $max: '$id' },
+      },
+    },
+  ])
+    .then((result) => {
+      let max = result[0].max + 1
+      res.render('new', { max })
+    })
+    .catch((error) => console.log(error))
+})
+
+// 新增一筆餐廳資料
+app.post('/restaurants', (req, res) => {
+  Restaurant.aggregate([
+    {
+      $group: {
+        _id: null,
+        max: { $max: '$id' },
+      },
+    },
+  ]).then((result) => {
+    let id = result[0].max + 1
+
+    Restaurant.create({
+      id: id,
+      name: req.body.name,
+      name_en: req.body.name_en,
+      category: req.body.category,
+      phone: req.body.phone,
+      location: req.body.location,
+      google_map: req.body.google_map,
+      rating: req.body.rating,
+      description: req.body.description,
+      image: req.body.image,
+    })
+      .then(() => {
+        res.redirect('/')
+      }) // 新增完成後導回首頁
+      .catch((error) => console.log(error))
+  })
 })
 
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .lean()
-    .then((restaurant) => res.render('show', { restaurant }))
+    .then((restaurant) =>
+      res.render('show', {
+        restaurant: restaurant,
+        banner: true,
+        addRestaurant: true,
+      })
+    )
     .catch((error) => console.log(error))
 })
 
@@ -56,7 +121,9 @@ app.get('/restaurants/:id/edit', (req, res) => {
 
   return Restaurant.findById(id)
     .lean()
-    .then((restaurant) => res.render('edit', { restaurant }))
+    .then((restaurant) =>
+      res.render('edit', { restaurant: restaurant, banner: false })
+    )
     .catch((error) => console.log(error))
 })
 
