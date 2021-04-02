@@ -4,6 +4,7 @@ const Restaurant = require('../restaurant') // 載入 todo model
 mongoose.connect('mongodb://localhost/restaurant-list', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useCreateIndex: true,
 })
 
 const db = mongoose.connection
