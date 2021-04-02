@@ -58,6 +58,7 @@ npm run dev
 - **[Visual Studio Code](https://visualstudio.microsoft.com/)** - 程式撰寫
 - **[iTerm 2](https://iterm2.com/)** - 終端機
 - **[jQuery validation Plugin](https://jqueryvalidation.org/)** - 前端頁面表單驗證工具
+- **[SweetAlert](https://sweetalert.js.org/)** - 美化跳出的提示視窗
 
 ## 開發者 Contributor
 
