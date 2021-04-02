@@ -13,6 +13,7 @@ const Restaurant = require('./models/restaurant')
 mongoose.connect('mongodb://localhost/restaurant-list', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useCreateIndex: true,
 })
 // db connection
 const db = mongoose.connection
@@ -160,21 +161,32 @@ app.post('/restaurants/:id/delete', (req, res) => {
 
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword
-  const restaurants = restaurantList.results.filter((restaurant) => {
-    const resultName = restaurant.name
-      .toLowerCase()
-      .includes(keyword.toLowerCase())
-    if (resultName == false) {
-      return restaurant.category.toLowerCase().includes(keyword.toLowerCase())
-    }
 
-    return restaurant.name.toLowerCase().includes(keyword.toLowerCase())
-  })
-  res.render('index', {
-    restaurants: restaurants,
-    keyword: keyword,
-    banner: true,
-  })
+  // 使用正規表達式搜尋字串
+  Restaurant.find(
+    {
+      $or: [
+        { name: { $regex: keyword, $options: 'i' } },
+        { name_en: { $regex: keyword, $options: 'i' } },
+        { category: { $regex: keyword, $options: 'i' } },
+      ],
+    },
+    { score: { $meta: 'textScore' } },
+    function (err, result) {
+      if (err) throw err
+    }
+  )
+    .collation({ locale: 'zh_Hant', strength: 1 })
+    .sort({ score: { $meta: 'textScore' } })
+    .lean()
+    .then((restaurants) => {
+      return res.render('index', {
+        restaurants: restaurants,
+        keyword: keyword,
+        banner: true,
+      })
+    })
+    .catch((error) => console.log(error))
 })
 
 app.listen(port, () => {

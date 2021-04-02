@@ -12,4 +12,5 @@ const restaurantSchema = new Schema({
   rating: Number,
   description: String,
 })
+restaurantSchema.index({ name: 'text', name_en: 'text', category: 'text' })
 module.exports = mongoose.model('Restaurant', restaurantSchema)
